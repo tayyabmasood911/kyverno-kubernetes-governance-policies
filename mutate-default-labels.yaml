@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: mutate-governance-labels
+  annotations:
+    policies.kyverno.io/title: Mutate Governance Labels
+    policies.kyverno.io/category: Governance & Metadata
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/description: Automatically injects enterprise metadata labels onto newly created Pods.
+spec:
+  rules:
+  - name: inject-compliance-labels
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            +(managed-by): "kyverno-governance"
+            +(compliance-posture): "cis-hardened"

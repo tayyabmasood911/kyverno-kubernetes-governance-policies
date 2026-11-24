@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="softShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="640" fill="#ffffff"/>
+
+  <!-- Top Title Bar -->
+  <rect x="40" y="24" width="1120" height="60" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="70" y="60" fill="#0f172a" font-size="20" font-weight="700" letter-spacing="0.3">Kyverno Kubernetes Governance &amp; Admission Control Blueprint</text>
+  <rect x="850" y="40" width="140" height="26" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="866" y="58" fill="#b91c1c" font-size="11" font-weight="700">POLICY ENFORCE</text>
+  <rect x="1000" y="40" width="140" height="26" rx="13" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="1015" y="58" fill="#1d4ed8" font-size="11" font-weight="700">CIS BENCHMARK</text>
+
+  <!-- COLUMN 1: Admission Webhook Pipeline -->
+  <rect x="40" y="110" width="340" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="40" y="110" width="340" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="60" y="136" fill="#0284c7" font-size="13" font-weight="700">1. K8S ADMISSION WEBHOOK</text>
+
+  <rect x="60" y="165" width="300" height="95" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="192" fill="#0f172a" font-size="14" font-weight="600">Kubernetes API Server</text>
+  <text x="75" y="214" fill="#64748b" font-size="11">Intercepts `kubectl apply`, Helm, &amp; GitOps</text>
+  <text x="75" y="234" fill="#0284c7" font-size="10" font-weight="600">ValidatingWebhook &amp; MutatingWebhook</text>
+  <text x="75" y="248" fill="#475569" font-size="10">Blocks non-compliant resources before etcd write</text>
+
+  <rect x="60" y="275" width="300" height="95" rx="6" fill="#f8fafc" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="75" y="302" fill="#1d4ed8" font-size="13" font-weight="600">Admission Review Handshake</text>
+  <text x="75" y="324" fill="#475569" font-size="11">Sub-10ms evaluation latency</text>
+  <text x="75" y="344" fill="#475569" font-size="11">Action: `Enforce` (Reject) or `Audit` (Log)</text>
+  <text x="75" y="360" fill="#16a34a" font-size="10" font-weight="600">Clear rejection messages returned to CLI</text>
+
+  <rect x="60" y="385" width="300" height="95" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="412" fill="#0f172a" font-size="13" font-weight="600">Background Scanner Loop</text>
+  <rect x="75" y="426" width="145" height="24" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="85" y="442" fill="#1d4ed8" font-size="10" font-weight="600">Continuous Drift Scan</text>
+  <text x="75" y="470" fill="#64748b" font-size="11">Audits existing in-cluster workloads for compliance</text>
+
+  <rect x="60" y="495" width="300" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="75" y="522" fill="#0f172a" font-size="13" font-weight="600">Namespace Exclusions</text>
+  <text x="75" y="545" fill="#475569" font-size="11">• System safeguard: Excludes `kube-system`</text>
+  <text x="75" y="565" fill="#475569" font-size="11">• Prevents accidental control plane deadlocks</text>
+
+  <!-- COLUMN 2: Kyverno Declarative Policy Rules -->
+  <rect x="410" y="110" width="370" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="410" y="110" width="370" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="430" y="136" fill="#dc2626" font-size="13" font-weight="700">2. DECLARATIVE CLUSTERPOLICIES</text>
+
+  <rect x="430" y="165" width="330" height="90" rx="6" fill="#f8fafc" stroke="#fca5a5" stroke-width="1"/>
+  <text x="445" y="192" fill="#b91c1c" font-size="13" font-weight="600">Pod Security Standards: Restricted</text>
+  <text x="445" y="214" fill="#475569" font-size="11">• `disallow-root-user` (runAsNonRoot=true)</text>
+  <text x="445" y="234" fill="#16a34a" font-size="10" font-weight="600">• `disallow-privileged-containers` (privileged=false)</text>
+  <text x="445" y="248" fill="#64748b" font-size="10">Blocks hostPID, hostIPC, hostNetwork &amp; escalation</text>
+
+  <rect x="430" y="270" width="330" height="105" rx="6" fill="#f8fafc" stroke="#fed7aa" stroke-width="1"/>
+  <text x="445" y="297" fill="#c2410c" font-size="13" font-weight="600">Immutable Filesystem &amp; Supply Chain</text>
+  <text x="445" y="320" fill="#15803d" font-size="11" font-weight="600">• `require-readonly-root-filesystem`</text>
+  <text x="445" y="340" fill="#15803d" font-size="11" font-weight="600">• `disallow-latest-tag` (rejects mutable :latest)</text>
+  <text x="445" y="360" fill="#475569" font-size="11">• Requires explicit semantic tags or SHA256 digests</text>
+
+  <rect x="430" y="390" width="330" height="95" rx="6" fill="#f8fafc" stroke="#fed7aa" stroke-width="1"/>
+  <text x="445" y="417" fill="#c2410c" font-size="13" font-weight="600">Resource Starvation Defense</text>
+  <text x="445" y="440" fill="#15803d" font-size="11" font-weight="600">• `require-cpu-memory-limits`</text>
+  <text x="445" y="460" fill="#475569" font-size="11">• Enforces requests &amp; limits on every container</text>
+  <text x="445" y="478" fill="#b91c1c" font-size="10" font-weight="600">Prevents noisy neighbors &amp; node OOM kills</text>
+
+  <rect x="430" y="500" width="330" height="80" rx="6" fill="#f8fafc" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="445" y="527" fill="#4338ca" font-size="13" font-weight="600">Automated Metadata Mutation</text>
+  <text x="445" y="549" fill="#475569" font-size="11">• `mutate-default-labels` patches governance metadata</text>
+  <text x="445" y="569" fill="#475569" font-size="11">• Injects compliance tracking and ownership tags</text>
+
+  <!-- COLUMN 3: Governance & Audit Reports -->
+  <rect x="810" y="110" width="350" height="490" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#softShadow)"/>
+  <rect x="810" y="110" width="350" height="40" rx="8" fill="#f1f5f9"/>
+  <text x="830" y="136" fill="#059669" font-size="13" font-weight="700">3. COMPLIANCE &amp; POLICY REPORTS</text>
+
+  <rect x="830" y="165" width="310" height="95" rx="6" fill="#f8fafc" stroke="#a7f3d0" stroke-width="1"/>
+  <text x="845" y="192" fill="#065f46" font-size="13" font-weight="600">Native PolicyReport CRDs</text>
+  <text x="845" y="214" fill="#475569" font-size="11">• Granular per-resource audit outcomes</text>
+  <text x="845" y="234" fill="#059669" font-size="10" font-weight="600">Status: Pass | Fail | Warn | Error | Skip</text>
+  <text x="845" y="250" fill="#475569" font-size="10">Aggregated via Policy Reporter UI</text>
+
+  <rect x="830" y="275" width="310" height="95" rx="6" fill="#f8fafc" stroke="#bae6fd" stroke-width="1"/>
+  <text x="845" y="302" fill="#0369a1" font-size="13" font-weight="600">Prometheus Metrics &amp; Alerting</text>
+  <text x="845" y="325" fill="#475569" font-size="11">• `kyverno_policy_results_total`</text>
+  <text x="845" y="345" fill="#475569" font-size="11">• `kyverno_policy_execution_duration_seconds`</text>
+  <text x="845" y="362" fill="#475569" font-size="11">• Real-time alerting on policy violation bursts</text>
+
+  <rect x="830" y="385" width="310" height="95" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="845" y="412" fill="#0f172a" font-size="13" font-weight="600">CIS Benchmark &amp; NIST 800-190</text>
+  <text x="845" y="435" fill="#475569" font-size="11">• Hardens cluster against container breakout</text>
+  <text x="845" y="455" fill="#475569" font-size="11">• Meets SOC 2 Type II and ISO 27001 criteria</text>
+  <text x="845" y="472" fill="#475569" font-size="11">• 100% Native YAML without custom DSLs</text>
+
+  <rect x="830" y="495" width="310" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="845" y="522" fill="#0f172a" font-size="13" font-weight="600">GitOps &amp; CLI Shift-Left</text>
+  <text x="845" y="545" fill="#475569" font-size="11">• `kyverno test` validates manifests in CI pipelines</text>
+  <text x="845" y="565" fill="#475569" font-size="11">• Developers catch policy violations before PR merge</text>
+</svg>

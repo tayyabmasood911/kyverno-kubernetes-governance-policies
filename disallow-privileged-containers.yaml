@@ -1,0 +1,35 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-privileged-containers
+  annotations:
+    policies.kyverno.io/title: Disallow Privileged Containers
+    policies.kyverno.io/category: Pod Security Standards (Restricted)
+    policies.kyverno.io/severity: critical
+    policies.kyverno.io/description: Privileged containers can bypass container isolation and access host resources.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+  - name: check-privileged-flags
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+    validate:
+      message: "Privileged containers, privilege escalation, and host namespaces are forbidden in production."
+      pattern:
+        spec:
+          =(hostPID): false
+          =(hostIPC): false
+          =(hostNetwork): false
+          containers:
+          - securityContext:
+              =(privileged): false
+              allowPrivilegeEscalation: false
